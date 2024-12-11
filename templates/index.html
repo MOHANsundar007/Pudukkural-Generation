@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>புதுக்குறள்</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Tamil', sans-serif;
+            background-image: url('{{ url_for("static", filename="pixelcut.jpeg") }}');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15), -5px -5px 15px rgba(255, 255, 255, 0.7);
+            position: relative;
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+            border-radius: 50%;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1.1em;
+            background-color: #f9f9f9;
+            color: #333;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #45a049, #4CAF50);
+        }
+
+        .result {
+            margin-top: 30px;
+            border-top: 2px solid #4CAF50;
+            padding-top: 20px;
+        }
+
+        .result p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .result a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 1.2em;
+        }
+
+        .result a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            color: #000;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1em;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            input[type="text"], button {
+                font-size: 1em;
+            }
+
+            .logo {
+                width: 60px;
+            }
+        }
+    </style>
+
+    <script>
+        function validateInput() {
+            const inputText = document.getElementById("seed_text").value.trim();
+            const wordCount = inputText.split(/\s+/).length;
+
+            if (wordCount > 2) {
+                alert("2 வார்த்தைகளுக்குள் உள்ளடக்கம் கொடுக்கவும்.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" class="logo">
+        <h1>புதுக்குறள் ஆக்க பொறி</h1>
+        <form action="/generate_and_get_meaning" method="post" onsubmit="return validateInput()">
+            <label for="seed_text">தலைப்பு:</label><br>
+            <input type="text" id="seed_text" name="seed_text" required placeholder="உங்கள் தலைப்பை  எழுதவும்"><br><br>
+            <button type="submit">Generate Kural</button>
+        </form>
+        <div class="result">
+            {% if verse %}
+            <h2>உருவாக்கப்பட்ட பொருள்:</h2>
+            <p><strong>குறள்:</strong> {{ verse }}</p>
+            <p><strong>பொருள்:</strong> {{ meaning }}</p>
+            <br>
+            <a href="/">மீண்டும் செல்லவும்</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="footer">
+       <p>&copy; 2024 22AM026 Mohanasundaram G. All rights reserved.</p>
+    </div>
+</body>
+</html>

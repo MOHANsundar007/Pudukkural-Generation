@@ -1,0 +1,9 @@
+Flask~=3.1.0
+numpy~=2.0.2
+Pillow~=11.0.0
+google-generativeai
+tensorflow~=2.18.0
+protobuf~=5.29.1
+langchain_google_genai
+dotenv
+pickle
